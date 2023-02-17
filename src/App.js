@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import FilterGrid from './components/filterGrid/FilterGrid';
+import { useDataContext } from './hooks/use-data-context';
+import UsersPage from './pages/users/UsersPage';
+import ProductsPage from './pages/products/ProductsPage';
+import Navbar from './components/nav/Navbar';
 
 function App() {
+  const { fetchUsers } = useDataContext();
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar />
+      <FilterGrid />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <h2>Welcome Page</h2>
+            </>
+          }
+        />
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/users" element={<UsersPage />} />
+      </Routes>
     </div>
   );
 }
