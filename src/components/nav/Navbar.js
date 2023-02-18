@@ -7,7 +7,7 @@ import { Button, Toolbar } from '@mui/material';
 export default function ButtonAppBar() {
   return (
     <Box sx={{ flexGrow: 1, marginBottom: '1rem' }}>
-      <AppBar position="static">
+      <AppBar style={{ background: '#322625' }} position="static">
         <Toolbar>
           <Button color="inherit">
             <CustomLink to={'/'}>Home</CustomLink>

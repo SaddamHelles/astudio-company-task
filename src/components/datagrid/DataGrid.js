@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
+import { Box, Pagination, Typography } from '@mui/material';
 import {
   DataGrid,
   gridPageCountSelector,
@@ -7,7 +7,7 @@ import {
   useGridApiContext,
   useGridSelector,
 } from '@mui/x-data-grid';
-import Pagination from '@mui/material/Pagination';
+// import { DataGridPro } from '@mui/x-data-grid-pro';
 
 function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -16,7 +16,10 @@ function CustomPagination() {
 
   return (
     <Pagination
-      color="primary"
+      style={{
+        backgroundColor: '#c0e3e5',
+        borderRadius: '5px',
+      }}
       count={pageCount}
       page={page + 1}
       onChange={(event, value) => apiRef.current.setPage(value - 1)}
@@ -25,42 +28,41 @@ function CustomPagination() {
 }
 
 export default function CustomPaginationGrid({ data, perPages }) {
+  console.log('CustomPaginationGrid: ', data);
+  if (!data.length) {
+    return (
+      <Box sx={{ textAlign: 'center' }}>
+        <Typography variant="h4">No Data Found!!!</Typography>
+      </Box>
+    );
+  }
+  const headerTitles = Object.keys(data[0]).map(key => ({
+    field: key,
+    headerName: key.toUpperCase(),
+    minWidth: 100,
+    flex: 1,
+  }));
+  headerTitles.shift();
   return (
-    <Box sx={{ height: 400, width: '100%' }}>
+    <Box sx={{ height: 400 }}>
       <DataGrid
+        sx={{
+          '.MuiDataGrid-columnSeparator': {
+            color: '#322625',
+          },
+          '.MuiDataGrid-columnHeader ': {
+            backgroundColor: '#c0e3e5',
+          },
+        }}
         pagination
         pageSize={perPages}
         rowsPerPageOptions={[perPages]}
         components={{
           Pagination: CustomPagination,
         }}
-        columns={Object.keys(data[0]).map(
-          key =>
-            key !== 'id' && {
-              field: key,
-              headerName: key.toUpperCase(),
-            }
-        )}
+        columns={headerTitles}
         rows={data}
       />
     </Box>
   );
 }
-
-/*
-[
-          { field: 'firstName', headerName: 'FIRST NAME' },
-          { field: 'lastName', headerName: 'MAIDEN Name' },
-          { field: 'maidenName', headerName: 'AGE' },
-          { field: 'age', headerName: 'GENDER' },
-          { field: 'gender', headerName: 'LAST NAME' },
-          { field: 'email', headerName: 'EMAIL' },
-          { field: 'username', headerName: 'USER NAME' },
-          { field: 'bloodGroup', headerName: 'BLOOD GROUB' },
-          { field: 'eyeColor', headerName: 'EYE COLOR' },
-          { field: 'phone', headerName: 'PHONE' },
-          { field: 'university', headerName: 'UNIVERSITY' },
-          { field: 'city', headerName: 'CITY' },
-          { field: 'image', headerName: 'IMAGE' },
-        ]
-*/
