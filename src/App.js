@@ -1,7 +1,5 @@
-import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import FilterGrid from './components/filterGrid/FilterGrid';
-import { useDataContext } from './hooks/use-data-context';
 import UsersPage from './pages/users/UsersPage';
 import ProductsPage from './pages/products/ProductsPage';
 import Navbar from './components/nav/Navbar';

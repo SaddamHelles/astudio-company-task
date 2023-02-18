@@ -42,7 +42,7 @@ export const Provider = ({ children }) => {
     [searchTerm]
   );
 
-  const fetchUsers = useCallback(async () => {
+  const fetchUsers = async () => {
     const data = await fetchData(`users`);
     const allUsers = data.users.map(user => ({
       id: user.id,
@@ -59,16 +59,14 @@ export const Provider = ({ children }) => {
       university: user.university,
       city: user.address.city,
     }));
-
-    if (searchTerm) setUsers(filterData(allUsers));
-    else setUsers(allUsers);
-  }, [searchTerm, filterData]);
+    setUsers(allUsers);
+  };
 
   const searchTermHandler = term => {
     setSearchTerm(term);
   };
 
-  const fetchProducts = useCallback(async () => {
+  const fetchProducts = async () => {
     const data = await fetchData(`products`);
     const allProducts = data.products.map(product => ({
       id: product.id,
@@ -82,10 +80,8 @@ export const Provider = ({ children }) => {
       category: product.category,
       // thumbnail: product.thumbnail,
     }));
-
-    if (searchTerm) setProducts(filterData(allProducts));
-    else setProducts(allProducts);
-  }, [searchTerm, filterData]);
+    setProducts(allProducts);
+  };
 
   const contextOperations = {
     users,
