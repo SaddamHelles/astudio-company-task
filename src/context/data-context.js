@@ -1,12 +1,15 @@
 import fetchData from '../utils/fetchData';
 import { createContext, useState, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const initialValue = {
   users: [],
   products: [],
   searchTerm: '',
   perPages: 3,
+  loading: false,
   reset: () => {},
+  queryHandler: term => {},
   searchTermHandler: term => {},
   fetchUsers: () => {},
   fetchProducts: () => {},
@@ -16,10 +19,12 @@ const initialValue = {
 const DataContext = createContext(initialValue);
 
 export const Provider = ({ children }) => {
+  const location = useLocation();
   const [perPages, setPerPages] = useState(5);
   const [searchTerm, setSearchTerm] = useState('');
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState([]);
 
   const perPagesHandler = perPages => {
     setPerPages(perPages);
@@ -28,21 +33,9 @@ export const Provider = ({ children }) => {
     setPerPages(5);
     setSearchTerm('');
   };
-  const filterData = useCallback(
-    data => {
-      const filteredData = data.filter(item =>
-        Object.values(item)
-          .join(' ')
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase())
-      );
 
-      return filteredData;
-    },
-    [searchTerm]
-  );
-
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
+    setLoading(true);
     const data = await fetchData(`users`);
     const allUsers = data.users.map(user => ({
       id: user.id,
@@ -60,13 +53,12 @@ export const Provider = ({ children }) => {
       city: user.address.city,
     }));
     setUsers(allUsers);
-  };
+    setLoading(false);
+  }, []);
 
-  const searchTermHandler = term => {
-    setSearchTerm(term);
-  };
+  const fetchProducts = useCallback(async () => {
+    setLoading(true);
 
-  const fetchProducts = async () => {
     const data = await fetchData(`products`);
     const allProducts = data.products.map(product => ({
       id: product.id,
@@ -78,20 +70,38 @@ export const Provider = ({ children }) => {
       stock: product.stock,
       brand: product.brand,
       category: product.category,
-      // thumbnail: product.thumbnail,
     }));
     setProducts(allProducts);
+    setLoading(false);
+  }, []);
+
+  const searchTermHandler = term => {
+    setSearchTerm(term);
+  };
+
+  const queryHandler = async query => {
+    try {
+      setLoading(true);
+      const data = await fetchData(`${query}`);
+
+      setLoading(false);
+      return data;
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   const contextOperations = {
     users,
     products,
     fetchUsers,
-    fetchProducts,
-    perPages,
-    perPagesHandler,
     searchTerm,
+    perPages,
+    loading,
+    fetchProducts,
+    perPagesHandler,
     searchTermHandler,
+    queryHandler,
     reset,
   };
 

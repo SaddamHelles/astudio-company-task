@@ -3,7 +3,6 @@ import { useDataContext } from '../../hooks/use-data-context';
 
 const SearchInput = () => {
   const { searchTermHandler, searchTerm } = useDataContext();
-  console.log('searchTerm: ', searchTerm);
   return (
     <div>
       <TextField

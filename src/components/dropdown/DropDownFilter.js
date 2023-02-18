@@ -2,7 +2,7 @@ import { Box, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 import { useDataContext } from '../../hooks/use-data-context';
 
 const DropDownFilter = ({ data, filterType }) => {
-  const { searchTerm, searchTermHandler } = useDataContext();
+  const { searchTerm, searchTermHandler, queryHandler } = useDataContext();
   const removeDuplicates = new Set(
     data.map(item =>
       filterType === 'name'
@@ -15,19 +15,32 @@ const DropDownFilter = ({ data, filterType }) => {
       {item}
     </MenuItem>
   ));
+
+  const changeOptionHandler = ({ target: { value } }) => {
+    if (filterType === 'category') {
+      queryHandler(`products/category/${value}`);
+    } else if (filterType === 'title' || filterType === 'brand') {
+      queryHandler(`products/search?q=${value}`);
+    } else if (filterType === 'name') {
+      queryHandler(`users/search?q=${value.split(' ')[0]}`);
+    } else if (filterType === 'email' || filterType === 'birthDate') {
+      queryHandler(`users/search?q=${value}`);
+    }
+
+    searchTermHandler(value);
+  };
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
-        <InputLabel id="pages-select-label">{filterType}</InputLabel>
+        <InputLabel id="pages-select-label">
+          {filterType.toUpperCase()}
+        </InputLabel>
         <Select
           labelId="pages-select-label"
           id="pages-select"
           value={searchTerm}
           label="Pages"
-          onChange={e => {
-            console.log('AAAAAAAAAAAAA: ', e.target.value);
-            searchTermHandler(e.target.value);
-          }}
+          onChange={changeOptionHandler}
         >
           {options}
         </Select>

@@ -7,7 +7,6 @@ import {
   useGridApiContext,
   useGridSelector,
 } from '@mui/x-data-grid';
-// import { DataGridPro } from '@mui/x-data-grid-pro';
 
 function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -28,11 +27,10 @@ function CustomPagination() {
 }
 
 export default function CustomPaginationGrid({ data, perPages }) {
-  console.log('CustomPaginationGrid: ', data);
   if (!data.length) {
     return (
       <Box sx={{ textAlign: 'center' }}>
-        <Typography variant="h4">No Data Found!!!</Typography>
+        <Typography variant="h4">No Data Found!</Typography>
       </Box>
     );
   }
@@ -53,6 +51,10 @@ export default function CustomPaginationGrid({ data, perPages }) {
           '.MuiDataGrid-columnHeader ': {
             backgroundColor: '#c0e3e5',
           },
+          '.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected':
+            {
+              backgroundColor: '#fdc936',
+            },
         }}
         pagination
         pageSize={perPages}

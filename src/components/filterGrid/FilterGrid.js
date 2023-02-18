@@ -8,7 +8,6 @@ import { useLocation } from 'react-router-dom';
 
 const FilterGrid = () => {
   const location = useLocation();
-  console.log('location: ', location);
   const { users, products } = useDataContext();
 
   return (

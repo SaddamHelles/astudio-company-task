@@ -1,0 +1,9 @@
+.muidatagrid-columnseparator {
+  color: var(--color-black);
+}
+.muidatagrid-columnheader {
+  background-color: var(--color-blue);
+}
+.css-yuzg60-muibuttonbase-root-muipaginationitem-root.mui-selected {
+  background-color: var(--color-yellow);
+}
