@@ -35,44 +35,54 @@ export const Provider = ({ children }) => {
   };
 
   const fetchUsers = useCallback(async () => {
-    setLoading(true);
-    const data = await fetchData(`users`);
-    const allUsers = data.users.map(user => ({
-      id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      maidenName: user.maidenName,
-      birthDate: user.birthDate,
-      gender: user.gender,
-      email: user.email,
-      username: user.username,
-      bloodGroup: user.bloodGroup,
-      eyeColor: user.eyeColor,
-      phone: user.phone,
-      university: user.university,
-      city: user.address.city,
-    }));
-    setUsers(allUsers);
-    setLoading(false);
+    try {
+      setLoading(true);
+      const data = await fetchData(`users?limit=100`);
+      const allUsers = data.users.map(user => ({
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        maidenName: user.maidenName,
+        birthDate: user.birthDate,
+        gender: user.gender,
+        email: user.email,
+        username: user.username,
+        bloodGroup: user.bloodGroup,
+        eyeColor: user.eyeColor,
+        phone: user.phone,
+        university: user.university,
+        city: user.address.city,
+      }));
+      setUsers(allUsers);
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   const fetchProducts = useCallback(async () => {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    const data = await fetchData(`products`);
-    const allProducts = data.products.map(product => ({
-      id: product.id,
-      title: product.title,
-      description: product.description,
-      price: product.price,
-      discount: product.discountPercentage,
-      rating: product.rating,
-      stock: product.stock,
-      brand: product.brand,
-      category: product.category,
-    }));
-    setProducts(allProducts);
-    setLoading(false);
+      const data = await fetchData(`products?limit=100`);
+      const allProducts = data.products.map(product => ({
+        id: product.id,
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        discount: product.discountPercentage,
+        rating: product.rating,
+        stock: product.stock,
+        brand: product.brand,
+        category: product.category,
+      }));
+      setProducts(allProducts);
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   const searchTermHandler = term => {
