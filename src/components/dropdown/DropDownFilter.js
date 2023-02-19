@@ -30,8 +30,8 @@ const DropDownFilter = ({ data, filterType }) => {
     searchTermHandler(value);
   };
   return (
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
+    <Box sx={{ minWidth: 80 }}>
+      <FormControl fullWidth size="small">
         <InputLabel id="pages-select-label">
           {filterType.toUpperCase()}
         </InputLabel>
@@ -39,8 +39,9 @@ const DropDownFilter = ({ data, filterType }) => {
           labelId="pages-select-label"
           id="pages-select"
           value={searchTerm}
-          label="Pages"
+          label={filterType.toUpperCase()}
           onChange={changeOptionHandler}
+          size="small"
         >
           {options}
         </Select>

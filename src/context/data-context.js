@@ -1,6 +1,5 @@
 import fetchData from '../utils/fetchData';
 import { createContext, useState, useCallback } from 'react';
-import { useLocation } from 'react-router-dom';
 
 const initialValue = {
   users: [],
@@ -19,7 +18,6 @@ const initialValue = {
 const DataContext = createContext(initialValue);
 
 export const Provider = ({ children }) => {
-  const location = useLocation();
   const [perPages, setPerPages] = useState(5);
   const [searchTerm, setSearchTerm] = useState('');
   const [users, setUsers] = useState([]);
@@ -93,7 +91,6 @@ export const Provider = ({ children }) => {
     try {
       setLoading(true);
       const data = await fetchData(`${query}`);
-
       setLoading(false);
       return data;
     } catch (error) {

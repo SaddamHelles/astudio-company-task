@@ -11,6 +11,7 @@ const SearchInput = () => {
         onChange={e => searchTermHandler(e.target.value)}
         placeholder="Search"
         autoFocus
+        size="small"
       />
     </div>
   );

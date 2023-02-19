@@ -10,8 +10,8 @@ export default function BasicSelect() {
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
+    <Box sx={{ minWidth: 80 }}>
+      <FormControl fullWidth size="small">
         <InputLabel id="pages-select-label">Pages</InputLabel>
         <Select
           labelId="pages-select-label"
@@ -19,6 +19,7 @@ export default function BasicSelect() {
           value={perPages}
           label="Pages"
           onChange={handleChange}
+          size="small"
         >
           <MenuItem value={5}>5</MenuItem>
           <MenuItem value={10}>10</MenuItem>

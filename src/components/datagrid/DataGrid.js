@@ -7,6 +7,7 @@ import {
   useGridApiContext,
   useGridSelector,
 } from '@mui/x-data-grid';
+import ContainerDataGrid from '../custom/ContainerDataGrid';
 
 function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -42,20 +43,8 @@ export default function CustomPaginationGrid({ data, perPages }) {
   }));
   headerTitles.shift();
   return (
-    <Box sx={{ height: 400 }}>
+    <ContainerDataGrid>
       <DataGrid
-        sx={{
-          '.MuiDataGrid-columnSeparator': {
-            color: '#322625',
-          },
-          '.MuiDataGrid-columnHeader ': {
-            backgroundColor: '#c0e3e5',
-          },
-          '.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected':
-            {
-              backgroundColor: '#fdc936',
-            },
-        }}
         pagination
         pageSize={perPages}
         rowsPerPageOptions={[perPages]}
@@ -65,6 +54,6 @@ export default function CustomPaginationGrid({ data, perPages }) {
         columns={headerTitles}
         rows={data}
       />
-    </Box>
+    </ContainerDataGrid>
   );
 }

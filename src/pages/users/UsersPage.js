@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useDataContext } from '../../hooks/use-data-context';
 import DataGrid from '../../components/datagrid/DataGrid';
 import filterData from '../../utils/filterData';
 import { Box, CircularProgress } from '@mui/material';
+import FilterGrid from '../../components/filterGrid/FilterGrid';
 
 const UsersPage = () => {
   const { users, perPages, fetchUsers, searchTerm, loading } = useDataContext();
@@ -16,12 +17,17 @@ const UsersPage = () => {
 
   if (loading) {
     return (
-      <Box sx={{ textAlign: 'center' }}>
+      <Box sx={{ textAlign: 'center', marginTop: '6rem' }}>
         <CircularProgress />
       </Box>
     );
   }
-  return <DataGrid data={filteredUsers} perPages={perPages} />;
+  return (
+    <Fragment>
+      <FilterGrid />
+      <DataGrid data={filteredUsers} perPages={perPages} />
+    </Fragment>
+  );
 };
 
 export default UsersPage;
