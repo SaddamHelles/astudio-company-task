@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import { Provider } from './context/data-context';
 import { BrowserRouter } from 'react-router-dom';
-import './style/variables/colors.css';
 import './style/main.css';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './style/mui-costum/fontStyle/fontStyle';

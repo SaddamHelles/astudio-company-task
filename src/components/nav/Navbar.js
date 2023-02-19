@@ -3,11 +3,12 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CustomLink from '../custom/CutsomLink';
 import { Button, Toolbar } from '@mui/material';
+import { COLORS } from '../../style/variables/colors';
 
 export default function ButtonAppBar() {
   return (
     <Box sx={{ flexGrow: 1, marginBottom: '1rem' }}>
-      <AppBar style={{ background: '#322625' }} position="static">
+      <AppBar style={{ backgroundColor: COLORS.blackColor }} position="static">
         <Toolbar>
           <Button color="inherit">
             <CustomLink to={'/'}>Home</CustomLink>

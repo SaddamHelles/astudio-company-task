@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box } from '@mui/material';
+import { COLORS } from '../../style/variables/colors';
 
 const ContainerDataGrid = ({ children }) => {
   return (
@@ -8,13 +9,13 @@ const ContainerDataGrid = ({ children }) => {
         height: 400,
         margin: '1rem 0',
         '.MuiDataGrid-columnSeparator': {
-          color: '#322625',
+          color: COLORS.blackColor,
         },
         '.MuiDataGrid-columnHeader ': {
-          backgroundColor: '#c0e3e5',
+          backgroundColor: COLORS.blueColor,
         },
         '.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected': {
-          backgroundColor: '#fdc936',
+          backgroundColor: COLORS.yellowColor,
         },
       }}
     >
