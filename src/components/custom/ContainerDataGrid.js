@@ -8,7 +8,7 @@ const ContainerDataGrid = ({ children }) => {
         height: 400,
         margin: '1rem 0',
         '.MuiDataGrid-columnSeparator': {
-          color: 'gray',
+          color: COLORS.blackColor,
         },
         '.MuiDataGrid-columnHeader ': {
           backgroundColor: COLORS.blueColor,

@@ -12,7 +12,7 @@ export default function BasicSelect() {
   return (
     <Box>
       <FormControl fullWidth size="small">
-        <InputLabel id="pages-select-label">Pages</InputLabel>
+        <InputLabel id="pages-select-label">PAGES</InputLabel>
         <Select
           labelId="pages-select-label"
           id="pages-select"
