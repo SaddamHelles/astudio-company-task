@@ -8,7 +8,7 @@ import {
   useGridSelector,
 } from '@mui/x-data-grid';
 import ContainerDataGrid from '../custom/ContainerDataGrid';
-import { COLORS } from '../../style/variables/colors';
+import { COLORS } from '../../style/constants/colors';
 
 function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -18,7 +18,7 @@ function CustomPagination() {
   return (
     <Pagination
       style={{
-        backgroundColor: COLORS.colorBlue,
+        backgroundColor: COLORS.blueColor,
         borderRadius: '5px',
       }}
       count={pageCount}

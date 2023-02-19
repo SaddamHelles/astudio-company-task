@@ -3,7 +3,7 @@ import { useDataContext } from '../../hooks/use-data-context';
 import DataGrid from '../../components/datagrid/DataGrid';
 import filterData from '../../utils/filterData';
 import { Box, CircularProgress } from '@mui/material';
-import FilterGrid from '../../components/filterGrid/FilterGrid';
+import Filters from '../../components/filterGrid/Filters';
 
 const UsersPage = () => {
   const { users, perPages, fetchUsers, searchTerm, loading } = useDataContext();
@@ -15,17 +15,15 @@ const UsersPage = () => {
     filteredUsers = filterData(users, searchTerm);
   }
 
-  if (loading) {
-    return (
-      <Box sx={{ textAlign: 'center', marginTop: '6rem' }}>
-        <CircularProgress />
-      </Box>
-    );
-  }
   return (
     <Fragment>
-      <FilterGrid />
-      <DataGrid data={filteredUsers} perPages={perPages} />
+      <Filters />
+      {loading && (
+        <Box sx={{ textAlign: 'center', marginTop: '6rem' }}>
+          <CircularProgress />
+        </Box>
+      )}
+      {!loading && <DataGrid data={filteredUsers} perPages={perPages} />}
     </Fragment>
   );
 };

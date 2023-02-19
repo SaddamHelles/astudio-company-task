@@ -10,7 +10,7 @@ export default function BasicSelect() {
   };
 
   return (
-    <Box sx={{ minWidth: 80 }}>
+    <Box>
       <FormControl fullWidth size="small">
         <InputLabel id="pages-select-label">Pages</InputLabel>
         <Select

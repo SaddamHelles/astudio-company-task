@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { Box, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 import { useDataContext } from '../../hooks/use-data-context';
 
 const DropDownFilter = ({ data, filterType }) => {
-  const { searchTerm, searchTermHandler, queryHandler } = useDataContext();
+  const [selectedOption, setSelectedOption] = useState('');
+  const { searchTermHandler, queryHandler } = useDataContext();
+
   const removeDuplicates = new Set(
     data.map(item =>
       filterType === 'name'
@@ -11,34 +14,37 @@ const DropDownFilter = ({ data, filterType }) => {
     )
   );
   const options = [...removeDuplicates].map((item, index) => (
-    <MenuItem key={index} value={item}>
+    <MenuItem key={data[index].id} value={item}>
       {item}
     </MenuItem>
   ));
 
   const changeOptionHandler = ({ target: { value } }) => {
+    setSelectedOption(value);
+    let query = value;
     if (filterType === 'category') {
-      queryHandler(`products/category/${value}`);
+      query = `products/category/${value}`;
     } else if (filterType === 'title' || filterType === 'brand') {
-      queryHandler(`products/search?q=${value}`);
+      query = `products/search?q=${value}`;
     } else if (filterType === 'name') {
-      queryHandler(`users/search?q=${value.split(' ')[0]}`);
+      query = `users/search?q=${value.split(' ')[0]}`;
     } else if (filterType === 'email' || filterType === 'birthDate') {
-      queryHandler(`users/search?q=${value}`);
+      query = `users/search?q=${value}`;
     }
 
+    queryHandler(query);
     searchTermHandler(value);
   };
   return (
     <Box sx={{ minWidth: 80 }}>
       <FormControl fullWidth size="small">
-        <InputLabel id="pages-select-label">
+        <InputLabel id={`${filterType}-label`}>
           {filterType.toUpperCase()}
         </InputLabel>
         <Select
-          labelId="pages-select-label"
-          id="pages-select"
-          value={searchTerm}
+          labelId={`${filterType}-label`}
+          id={filterType}
+          value={selectedOption}
           label={filterType.toUpperCase()}
           onChange={changeOptionHandler}
           size="small"

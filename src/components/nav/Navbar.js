@@ -3,7 +3,7 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CustomLink from '../custom/CutsomLink';
 import { Button, Toolbar } from '@mui/material';
-import { COLORS } from '../../style/variables/colors';
+import { COLORS } from '../../style/constants/colors';
 
 export default function ButtonAppBar() {
   return (

@@ -1,17 +1,18 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDataContext } from '../../hooks/use-data-context';
+import { COLORS } from '../../style/constants/colors';
 
 const CutsomLink = ({ to, children }) => {
   const { reset } = useDataContext();
   let activeStyle = {
     textDecoration: 'none',
-    color: '#fdc936',
+    color: COLORS.yellowColor,
     fontWeight: '900',
   };
   let noneActiveStyle = {
     textDecoration: 'none',
-    color: '#ebebeb',
+    color: COLORS.grayColor,
   };
 
   return (

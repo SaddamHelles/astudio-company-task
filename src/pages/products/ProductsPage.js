@@ -3,7 +3,7 @@ import { useDataContext } from '../../hooks/use-data-context';
 import DataGrid from '../../components/datagrid/DataGrid';
 import filterData from '../../utils/filterData';
 import { Box, CircularProgress } from '@mui/material';
-import FilterGrid from '../../components/filterGrid/FilterGrid';
+import Filters from '../../components/filterGrid/Filters';
 
 const ProductsPage = () => {
   const { products, fetchProducts, perPages, searchTerm, loading } =
@@ -18,18 +18,15 @@ const ProductsPage = () => {
     filteredProducts = filterData(products, searchTerm);
   }
 
-  if (loading) {
-    return (
-      <Box sx={{ textAlign: 'center', marginTop: '6rem' }}>
-        <CircularProgress />
-      </Box>
-    );
-  }
-
   return (
     <Fragment>
-      <FilterGrid />
-      <DataGrid data={filteredProducts} perPages={perPages} />
+      <Filters />
+      {loading && (
+        <Box sx={{ textAlign: 'center', marginTop: '6rem' }}>
+          <CircularProgress />
+        </Box>
+      )}
+      {!loading && <DataGrid data={filteredProducts} perPages={perPages} />}
     </Fragment>
   );
 };

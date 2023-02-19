@@ -1,23 +1,19 @@
 import React from 'react';
-import { Grid, Box } from '@mui/material';
+import { Grid } from '@mui/material';
 import DropDownPerPage from '../dropdown/DropDownPerPage';
 import SearchIcon from '../search/SearchIcon';
 import DropDownFilter from '../dropdown/DropDownFilter';
 import { useDataContext } from '../../hooks/use-data-context';
 import { useLocation } from 'react-router-dom';
 
-const FilterGrid = () => {
+const Filters = () => {
   const location = useLocation();
   const { users, products } = useDataContext();
 
   return (
     <>
-      <Grid
-        sx={{ m: 'auto', margin: '1rem 0' }}
-        container
-        spacing={{ xs: 3, sm: 6, md: 1 }}
-      >
-        <Grid item sm={1} md={1}>
+      <Grid sx={{ marginBottom: '1rem' }} container spacing={2}>
+        <Grid item xs={12} sm={2} md={1}>
           <DropDownPerPage />
         </Grid>
         <Grid
@@ -27,13 +23,14 @@ const FilterGrid = () => {
             justifyContent: 'flex-start',
           }}
           item
-          sm={6}
-          md={3}
+          xs={12}
+          sm={4}
+          md={2}
         >
           <SearchIcon />
         </Grid>
       </Grid>
-      <Grid container spacing={{ xs: 3, sm: 6, md: 1 }}>
+      <Grid container spacing={2}>
         {location.pathname === '/users' ? (
           <>
             <Grid item xs={12} sm={4} md={2}>
@@ -67,4 +64,4 @@ const FilterGrid = () => {
   );
 };
 
-export default FilterGrid;
+export default Filters;
